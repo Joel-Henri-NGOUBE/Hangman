@@ -11,7 +11,8 @@ const chosenword = words[parseInt(Math.random()*10)]
 export default function Page(){
     const [letter,setLetter] = useState('')
     const [word,setWord] = useState(["_","_","_","_","_","_","_","_","_","_"])
-    const [points, setPoints] = useState(0)
+    const [points, setPoints] = useState(10)
+    const [letters, setLetters] = useState([])
     // let b = "bonjour"
     // b[2] = "s"
     // const [chosenword2,setChosenWord] = useState(chosenword)
@@ -22,16 +23,26 @@ export default function Page(){
     }
     function handleChangeLetter(lettre){
         let i = 0    
+        let len = letters.length
         setWord(chosenword2.map(element => {
                     i++
                     if (element === lettre){
-                       setPoints(p => p + 10)
+                       if(letters.includes(lettre)){                                             
+                       }
+                       else{
+                        setLetters([...letters,
+                        lettre])
+                        setPoints(p => p + 10)
+                       }
                        return lettre
                     }
                     else if(word[i-1] !== "_"){
                         return word[i-1]
                     }
                     else {
+                        if(i === 9 && len === letters.length){                           
+                            setPoints(p => p - 4)                           
+                        }
                        return "_"
                     }
                 }))
@@ -48,6 +59,7 @@ export default function Page(){
     return (
     <div>
         <p>{points} points</p>
+        <p>{letters}</p>
         <p>{word}</p>
         <p>{chosenword}</p>
         <form onChange={(e) => onChange2(e)}>
