@@ -13,10 +13,12 @@ export default function Page(){
     const [word,setWord] = useState(["_","_","_","_","_","_","_","_","_","_"])
     const [points, setPoints] = useState(10)
     const [letters, setLetters] = useState([])
+    // const [lettersLength,setLettersLength] = useState(0)
     // let b = "bonjour"
     // b[2] = "s"
     // const [chosenword2,setChosenWord] = useState(chosenword)
     // setChosenWord([])
+    // let letters = []
     let chosenword2 = []
     for(let element of chosenword){
         chosenword2.push(element)
@@ -26,12 +28,13 @@ export default function Page(){
         let len = letters.length
         setWord(chosenword2.map(element => {
                     i++
-                    if (element === lettre){
+                    if(element === lettre){
                        if(letters.includes(lettre)){                                             
                        }
                        else{
-                        setLetters([...letters,
-                        lettre])
+                        setLetters(l => [...l,lettre])
+                        // setLettersLength(lettersLength + 1)
+                        // letters.push(lettre)
                         setPoints(p => p + 10)
                        }
                        return lettre
@@ -41,13 +44,13 @@ export default function Page(){
                     }
                     else {
                         if(i === 9 && len === letters.length){                           
-                            setPoints(p => p - 4)                           
+                            setPoints(p => p - 4)                      
                         }
                        return "_"
                     }
                 }))
     }
-    function onChange2(e){
+    function handleChange(e){
         if (e.target.value){
         setLetter(e.target.value)
         handleChangeLetter(e.target.value)
@@ -62,7 +65,7 @@ export default function Page(){
         <p>{letters}</p>
         <p>{word}</p>
         <p>{chosenword}</p>
-        <form onChange={(e) => onChange2(e)}>
+        <form onChange={(e) => handleChange(e)}>
          <input type="text" maxLength="1"></input>
         </form>
         {/* <ChangeLetter lettre={letter} /> */}
