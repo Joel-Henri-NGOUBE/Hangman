@@ -1,0 +1,197 @@
+.buttrial1,.buttrial2,.buttrial3,.buttrial4,.buttrial5,.buttrial6,.buttrial7,.buttrial8{
+    border: 4px solid black;
+    height: 40px;
+    width: 40px;
+    border-radius: 4px;
+    margin: 3px;
+    margin-right: 10px;
+    position: relative;
+    left: 25px;
+    /* box-sizing: border-box; */
+}
+
+.butt1{
+    height: 40px;
+    width: 40px;
+    margin: 3px;
+    border-radius: 4px;
+}
+
+.butt1,.butt2,.butt3,.butt4,.butt5,.butt6,.butt7,.butt8{
+    height: 40px;
+    width: 40px;
+    margin: 3px;
+    border-radius: 4px;
+    border: none;
+}
+
+.butt1,.buttrial1{
+    background-color: rgb(123, 253, 123)
+}
+
+.butt2,.buttrial2{
+    background-color: rgb(182, 251, 182)
+}
+
+.butt3,.buttrial3{
+    background-color: rgb(220, 255, 154)
+}
+
+.butt4,.buttrial4{
+    background-color: rgb(231, 252, 172)
+}
+
+.butt5,.buttrial5{
+    background-color: rgb(242, 251, 191)
+}
+
+.butt6,.buttrial6{
+    background-color: rgb(255, 254, 181)
+    
+}
+
+.butt7,.buttrial7{
+    background-color: rgb(255, 253, 139)
+    
+}
+
+.butt8,.buttrial8{
+    background-color: rgb(252, 249, 110)
+
+}
+
+.points_title{
+    margin: 0;
+    font-size: 2em;
+}
+
+.p{ 
+    margin: 0;
+    font-size: 1em;
+}
+
+.p_word{ 
+    margin: 0;
+    font-size: 2em;
+}
+
+.won{ 
+    margin: 0;
+    font-size: 2em;
+    color: rgb(123, 253, 123)
+}
+
+.lost{
+    margin: 0;
+    font-size: 2em;
+    color: rgb(252, 249, 110);
+}
+
+.p_trial{
+    position: relative;
+    left: 25px;
+    font-size: 0.9em;
+}
+
+.divtrial{
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    width: 20%;
+    height: 100%;
+    justify-content: center;
+    /* margin: 20px; */
+    /* margin-left: 10%; */
+    /* margin-right: 0; */
+    align-items: center;
+}
+
+.divactualtrial{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* justify-content: space-between; */
+}
+
+.all{
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 96vw;
+    height: 97vh;
+    background-image: url('./hangman.jpg'); 
+    background-size: contain;
+    background-repeat: no-repeat; 
+    background-position: left bottom;
+    /* overflow: hidden; */
+    
+}
+
+.game{
+    display: flex;
+    flex-direction: column;
+    width: 55%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.rules{
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    background-color: rgba(71, 156, 165, 0.45);
+    border-radius: 25px;
+    /* opacity: 50%; */
+}
+
+.points{
+    align-items: center;
+}
+
+.p_points{
+    margin: 0;
+    justify-content: center;
+    font-size: 2em;
+    text-align: center;
+    color: rgb(123, 253, 123)
+}
+
+.p_points_negative{
+    margin: 0;
+    justify-content: center;
+    font-size: 2em;
+    text-align: center;
+    color: rgb(252, 249, 110);
+}
+
+.in_game{
+    margin: 20px
+}
+
+.form_in_game{
+    height: 25px;
+    width: 30px;
+    border-radius: 10px;
+    padding-left: 25px;
+    border: 2px solid black;
+
+}
+
+.pendu{
+    text-align: center;
+    margin: 0;
+    font-size: 3em;
+}
+
+.liste{
+    /* opacity: 1; */
+    z-index: 10;
+    /* color: rgb(81, 79, 79); */
+}
