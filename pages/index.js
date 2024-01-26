@@ -6,10 +6,11 @@ import styles from "./index.module.css"
 // const n = parseInt(Math.random()*10)
 // const chosenword = words[n]
 
-const chosenword = "BOULANGER"
 
 export default function Page(){
-    const [clicked,setClicked] = useState(false)
+    const words = ["SUISSESSE","EMBARQUER","PLASTIQUE","ETUDIANTE","FLEMMARDE","ESCAPADES","VERRIERES","PESTICIDE","ACCOUDOIR","CHATELAIN"]
+    const [chosenword,setChosenWord] = useState([false,[]])
+    // const [clicked,setClicked] = useState(false)
     const [gameData,setGameData] = useState({
         letter: "",
         word: ["_","_","_","_","_","_","_","_","_","_"],
@@ -20,18 +21,30 @@ export default function Page(){
         badLetters: []
     })
 
-    let chosenword2 = []
-
-    for(let element of chosenword){
-        chosenword2.push(element)
+    const onStart = () => {
+        const n = parseInt(Math.random()*10)
+        setChosenWord(cw => cw.map((element,index) => index === 1 ? words[n] : element))
+        setChosenWord(cw => cw.map((element,index) => {
+            if(index === 1){
+                // words[n].map((element) => {element})} : element)})
+                let chosenword2 = []    
+                for(let element of words[n]){
+                    chosenword2.push(element)
+                }
+                return chosenword2;
+            }
+            else{
+                return element
+            }
+        }))
     }
 
-    function handleChangeLetter(lettre,lettres,badLetterArray){
+    function handleChangeLetter(lettre, lettres, badLetterArray, chosenWord){
         let i = 0
-        let len  = 0 
+        let len  = 0  
 
         // Il est préférable d'exploiter directement le mot entré en paramètre 
-        let chosenword3 = chosenword2.map((element) => { 
+        let chosenword2 = chosenWord.map((element) => { 
         i++
         if(element === lettre){
            if(lettres.includes(lettre)){ 
@@ -46,7 +59,7 @@ export default function Page(){
             return gameData.word[i-1]
         }
         else {
-            if(i === 9 && !chosenword2.includes(lettre)){   
+            if(i === 9 && !chosenWord.includes(lettre)){   
               if(!badLetterArray.includes(lettre)){
                 setGameData(gD => ({... gD, badLetters: [...gD.badLetters, lettre, ""]}))   
               }  
@@ -70,12 +83,12 @@ export default function Page(){
         return "_"
         }
     })
-    setGameData(gD => ({...gD, word: chosenword3}))
+    setGameData(gD => ({...gD, word: chosenword2}))
 }
-    function handleChange(e,lettres,badLetterArray){
+    function handleChange(e, lettres, badLetterArray, chosenWord){
         if (e.target.value){
         setGameData(gD => ({...gD, letter: e.target.value}))
-        handleChangeLetter(e.target.value,lettres,badLetterArray)
+        handleChangeLetter(e.target.value, lettres, badLetterArray, chosenWord)
         e.target.value = ""
         }
     }
@@ -87,7 +100,7 @@ export default function Page(){
 
       <Rules />
         { 
-        clicked 
+        chosenword[0]
     
         ?
         <>
@@ -109,7 +122,7 @@ export default function Page(){
 
             {(gameData.missed[7]!== 1 && !gameData.word.includes("_")) ? <p className={styles.won}>Bravo, vous avez trouvé le mot.</p> : ((gameData.missed[7] === 1 ? <p className={styles.lost}>Désolé, vous avez perdu!</p> : 
             
-            <form onChange={(e) => handleChange(e, gameData.letters, gameData.badLetters)} className={styles.in_game}>
+            <form onChange={(e) => handleChange(e, gameData.letters, gameData.badLetters,chosenword[1])} className={styles.in_game}>
             <input type="text" maxLength="1" className ={styles.form_in_game}></input>
             </form>))}
             
@@ -126,7 +139,7 @@ export default function Page(){
         :
 
         <div className={styles.start}>
-            <button onClick={() => setClicked(!clicked)}>Start</button>
+            <button onClick={() => {setChosenWord(cw => cw.map((element,index) => index === 0 ? !element : element)); onStart()}}>Start</button>
         </div>
       
 }
