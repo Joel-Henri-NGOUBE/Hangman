@@ -179,3 +179,20 @@
 .liste{
     z-index: 10;
 }
+
+.start{
+    width: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.start button{
+    background: rgba(71, 156, 165);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+

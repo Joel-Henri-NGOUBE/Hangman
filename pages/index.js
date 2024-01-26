@@ -9,13 +9,16 @@ import styles from "./index.module.css"
 const chosenword = "BOULANGER"
 
 export default function Page(){
-    const [letter,setLetter] = useState('')
-    const [word,setWord] = useState(["_","_","_","_","_","_","_","_","_","_"])
-    const [missedLetters,setMissedLetters] = useState(0)
-    const [missed,setMissed] = useState([1,0,0,0,0,0,0,0])
-    const [letters, setLetters] = useState([])
-    const [points, setPoints] = useState(10)
-    const [badLetters, setBadLetters] = useState([])
+    const [clicked,setClicked] = useState(false)
+    const [gameData,setGameData] = useState({
+        letter: "",
+        word: ["_","_","_","_","_","_","_","_","_","_"],
+        missedLetters: 0,
+        missed: [1,0,0,0,0,0,0,0],
+        letters: [],
+        points: 10,
+        badLetters: []
+    })
 
     let chosenword2 = []
 
@@ -27,92 +30,107 @@ export default function Page(){
         let i = 0
         let len  = 0 
 
-        setWord(chosenword2.map((element) => {
+        let chosenword3 = chosenword2.map((element) => { 
         i++
         if(element === lettre){
            if(lettres.includes(lettre)){ 
            }
            else{
-            setLetters([...letters, lettre])
-            setPoints(p => p + 10)
+            setGameData(gD => ({... gD, letters: [...gD.letters, lettre]}))
+            setGameData(gD => ({... gD, points: gD.points + 10}))
            }
            return lettre
         }
-        else if(word[i-1] !== "_"){
-            return word[i-1]
+        else if(gameData.word[i-1] !== "_"){
+            return gameData.word[i-1]
         }
         else {
             if(i === 9 && !chosenword2.includes(lettre)){   
               if(!badLetterArray.includes(lettre)){
-                  setBadLetters([...badLetters, lettre," "])                     
+                setGameData(gD => ({... gD, badLetters: [...gD.badLetters, lettre, ""]}))   
               }  
-             setPoints(points - 4)   
-             setMissedLetters(missedLetters + 1)
+             setGameData(gD => ({... gD, points: gD.points - 4})) 
+             setGameData(gD => ({... gD, missedLetters: gD.missedLetters + 1})) 
              let j = -1
-             setMissed(missed.map((element) => {
-                 j++
-                 if(element === 0 || element === 1){
-                     if(j === missedLetters + 1){
-                         return 1
-                     }
-                     else{
-                         return 0
-                     }
-                 }
-             }))                           
+             setGameData(
+                gD => ({... gD, missed: gD.missed.map((element) => {
+                    j++
+                    if(element === 0 || element === 1){
+                        if(j === gD.missedLetters + 1){
+                            return 1
+                        }
+                        else{
+                            return 0
+                        }
+                    }
+                })             
+            }))                            
          }
         return "_"
-                    }
-                }))
-    }
+        }
+    })
+    setGameData(gD => ({...gD, word: chosenword3}))
+}
     function handleChange(e,lettres,badLetterArray){
         if (e.target.value){
-        setLetter(e.target.value)
+        setGameData(gD => ({...gD, letter: e.target.value}))
         handleChangeLetter(e.target.value,lettres,badLetterArray)
         e.target.value = ""
-        }
-        else{
         }
     }
 
     return (
     
+        
     <div className={styles.all}>
 
       <Rules />
+        { 
+        clicked 
+    
+        ?
+        <>
+        <div className={styles.game}>
+            <div className={styles.in_game}>
+                <p className={styles.pendu}><b>LE PENDU</b></p>
+            </div>
 
-      <div className={styles.game}>
-        <div className={styles.in_game}>
-            <p className={styles.pendu}><b>LE PENDU</b></p>
+
+            <div className={styles.in_game}>
+                <p className={styles.points_title}>Vos points actuels:</p>
+                <p className={gameData.points >= 0 ? styles.p_points : styles.p_points_negative}><b>{gameData.points}</b></p>
+            </div>
+
+            <div className={styles.in_game}>
+                <p className={(gameData.missed[7]!== 1 && !gameData.word.includes("_")) ? styles.won : ((gameData.missed[7] === 1 ? styles.lost : styles.p_word))}>{gameData.word.join(" ")}</p>
+            </div>
+
+
+            {(gameData.missed[7]!== 1 && !gameData.word.includes("_")) ? <p className={styles.won}>Bravo, vous avez trouvé le mot.</p> : ((gameData.missed[7] === 1 ? <p className={styles.lost}>Désolé, vous avez perdu!</p> : 
+            
+            <form onChange={(e) => handleChange(e, gameData.letters, gameData.badLetters)} className={styles.in_game}>
+            <input type="text" maxLength="1" className ={styles.form_in_game}></input>
+            </form>))}
+            
+
+            <div className={styles.in_game}>
+                <p className={styles.p}><u>{ gameData.badLetters.length !== 0 && "Lettres utilisées:"}</u> <b> {gameData.badLetters} </b></p>
+            </div>
         </div>
-
-
-        <div className={styles.in_game}>
-            <p className={styles.points_title}>Vos points actuels:</p>
-            <p className={points >= 0 ? styles.p_points : styles.p_points_negative}><b>{points}</b></p>
-        </div>
-
-        <div className={styles.in_game}>
-            <p className={(missed[7]!== 1 && !word.includes("_")) ? styles.won : ((missed[7] === 1 ? styles.lost : styles.p_word))}>{word.join(" ")}</p>
-        </div>
-
-
-        {(missed[7]!== 1 && !word.includes("_")) ? <p className={styles.won}>Bravo, vous avez trouvé le mot.</p> : ((missed[7] === 1 ? <p className={styles.lost}>Désolé, vous avez perdu!</p> : 
-        <form onChange={(e) => handleChange(e,letters,badLetters)} className={styles.in_game}>
-         <input type="text" maxLength="1" className ={styles.form_in_game}></input>
-        </form>))}
-        
-
-        <div className={styles.in_game}>
-            <p className={styles.p}><u>{ badLetters.length !== 0 && "Lettres utilisées:"}</u> <b> {badLetters} </b></p>
-        </div>
-      </div>
 
         <Trials
-        missing = {missed}
+            missing = {gameData.missed}
         />
+        </>
+        :
 
-    </div>)
+        <div className={styles.start}>
+            <button onClick={() => setClicked(!clicked)}>Start</button>
+        </div>
+      
+}
+        </div>
+        )
 }
 
 function Trials({ missing }){
