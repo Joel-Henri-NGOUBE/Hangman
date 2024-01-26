@@ -30,7 +30,6 @@ export default function Page(){
         let i = 0
         let len  = 0 
 
-        // Il est préférable d'exploiter directement le mot entré en paramètre 
         let chosenword3 = chosenword2.map((element) => { 
         i++
         if(element === lettre){
