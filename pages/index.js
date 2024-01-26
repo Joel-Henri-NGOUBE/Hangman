@@ -9,6 +9,7 @@ import styles from "./index.module.css"
 const chosenword = "BOULANGER"
 
 export default function Page(){
+    const [clicked,setClicked] = useState(false)
     const [gameData,setGameData] = useState({
         letter: "",
         word: ["_","_","_","_","_","_","_","_","_","_"],
@@ -77,49 +78,60 @@ export default function Page(){
         handleChangeLetter(e.target.value,lettres,badLetterArray)
         e.target.value = ""
         }
-        else{
-        }
     }
 
     return (
     
+        
     <div className={styles.all}>
 
       <Rules />
+        { 
+        clicked 
+    
+        ?
+        <>
+        <div className={styles.game}>
+            <div className={styles.in_game}>
+                <p className={styles.pendu}><b>LE PENDU</b></p>
+            </div>
 
-      <div className={styles.game}>
-        <div className={styles.in_game}>
-            <p className={styles.pendu}><b>LE PENDU</b></p>
+
+            <div className={styles.in_game}>
+                <p className={styles.points_title}>Vos points actuels:</p>
+                <p className={gameData.points >= 0 ? styles.p_points : styles.p_points_negative}><b>{gameData.points}</b></p>
+            </div>
+
+            <div className={styles.in_game}>
+                <p className={(gameData.missed[7]!== 1 && !gameData.word.includes("_")) ? styles.won : ((gameData.missed[7] === 1 ? styles.lost : styles.p_word))}>{gameData.word.join(" ")}</p>
+            </div>
+
+
+            {(gameData.missed[7]!== 1 && !gameData.word.includes("_")) ? <p className={styles.won}>Bravo, vous avez trouvé le mot.</p> : ((gameData.missed[7] === 1 ? <p className={styles.lost}>Désolé, vous avez perdu!</p> : 
+            
+            <form onChange={(e) => handleChange(e, gameData.letters, gameData.badLetters)} className={styles.in_game}>
+            <input type="text" maxLength="1" className ={styles.form_in_game}></input>
+            </form>))}
+            
+
+            <div className={styles.in_game}>
+                <p className={styles.p}><u>{ gameData.badLetters.length !== 0 && "Lettres utilisées:"}</u> <b> {gameData.badLetters} </b></p>
+            </div>
         </div>
-
-
-        <div className={styles.in_game}>
-            <p className={styles.points_title}>Vos points actuels:</p>
-            <p className={gameData.points >= 0 ? styles.p_points : styles.p_points_negative}><b>{gameData.points}</b></p>
-        </div>
-
-        <div className={styles.in_game}>
-            <p className={(gameData.missed[7]!== 1 && !gameData.word.includes("_")) ? styles.won : ((gameData.missed[7] === 1 ? styles.lost : styles.p_word))}>{gameData.word.join(" ")}</p>
-        </div>
-
-
-        {(gameData.missed[7]!== 1 && !gameData.word.includes("_")) ? <p className={styles.won}>Bravo, vous avez trouvé le mot.</p> : ((gameData.missed[7] === 1 ? <p className={styles.lost}>Désolé, vous avez perdu!</p> : 
-        
-        <form onChange={(e) => handleChange(e, gameData.letters, gameData.badLetters)} className={styles.in_game}>
-         <input type="text" maxLength="1" className ={styles.form_in_game}></input>
-        </form>))}
-        
-
-        <div className={styles.in_game}>
-            <p className={styles.p}><u>{ gameData.badLetters.length !== 0 && "Lettres utilisées:"}</u> <b> {gameData.badLetters} </b></p>
-        </div>
-      </div>
 
         <Trials
-        missing = {gameData.missed}
+            missing = {gameData.missed}
         />
+        </>
+        :
 
-    </div>)
+        <div className={styles.start}>
+            <button onClick={() => setClicked(!clicked)}>Start</button>
+        </div>
+      
+}
+        </div>
+        )
 }
 
 function Trials({ missing }){
