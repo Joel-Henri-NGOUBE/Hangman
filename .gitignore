@@ -1,7 +1,7 @@
 *
+!*.json
 !pages/index.js
 !pages/hangman.jpg
 !pages/index.module.css
 !.gitignore
 !README.md
-
