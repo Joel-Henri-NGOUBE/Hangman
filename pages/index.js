@@ -50,7 +50,6 @@ export default function Page(){
                 setGameData(gD => ({... gD, badLetters: [...gD.badLetters, lettre, ""]}))   
               }  
              setGameData(gD => ({... gD, points: gD.points - 4})) 
-             setGameData(gD => ({... gD, missedLetters: gD.missedLetters + 1})) 
              let j = -1
              setGameData(
                 gD => ({... gD, missed: gD.missed.map((element) => {
@@ -64,7 +63,8 @@ export default function Page(){
                         }
                     }
                 })             
-            }))                            
+            }))
+            setGameData(gD => ({... gD, missedLetters: gD.missedLetters + 1})) 
          }
         return "_"
         }
