@@ -95,6 +95,9 @@ export default function Page(){
                 <p className={styles.pendu}><b>LE PENDU</b></p>
             </div>
 
+            {/* <Trials
+                missing = {gameData.missed}
+            /> */}
 
             <div className={styles.in_game}>
                 <p className={styles.points_title}>Vos points actuels:</p>
@@ -117,7 +120,7 @@ export default function Page(){
                 <p className={styles.p}><u>{ gameData.badLetters.length !== 0 && "Lettres utilisées:"}</u> <b> {gameData.badLetters} </b></p>
             </div>
         </div>
-
+        
         <Trials
             missing = {gameData.missed}
         />
@@ -141,7 +144,7 @@ let trials = missing.map((element) => {
         return (
         <div key={i} className={styles.divactualtrial}>
             <button className={(i === 1) ? styles.buttrial1 : ((i === 2) ? styles.buttrial2 : ((i === 3) ? styles.buttrial3 : ((i === 4) ? styles.buttrial4 :((i === 5) ? styles.buttrial5 : ((i === 6) ? styles.buttrial6 :((i === 7) ? styles.buttrial7 : styles.buttrial8))))))} ></button> 
-            <p className={styles.p_trial}>{8 - i} {8 - i > 1 ? "essais" : "essai"}</p>
+            <p className={styles.p_trial}>{8 - i} {8 - i > 1 ? <span>essais</span> : <span>essai</span>}</p>
         </div>)
     }
     else{
@@ -159,12 +162,12 @@ let trials = missing.map((element) => {
 function Rules(){
     return(
         <div className={styles.rules}>
-            <p>Bienvenue pour une partie de <b>HANGMAN</b> ou <b>PENDU</b> ou vous pourrez tenter de déceler le mot de neuf lettres caché. Pour pouvoir jouer, vous devez tenir compte de quelques points:</p>
+            <p>Bienvenue pour une partie de <b className={styles.b}>HANGMAN</b> ou <b className={styles.b}>PENDU</b> ou vous pourrez tenter de déceler le mot de neuf lettres caché. Pour pouvoir jouer, vous devez tenir compte de quelques points:</p>
             <ul>
                 <li className={styles.liste}>Vous devez impérativement saisir des lettres majuscules sinon elles ne seront pas considérées comme équivalentes à celles du mot caché.</li><br/>
-                <li className={styles.liste}>Evitez de mettre les mêmes mauvaises lettres, elles enlèveront tout de même des points: <b>4 points</b> par mauvaise lettre. Cependant en trouver une vous rapportera <b>10 points</b>.</li><br/>
+                <li className={styles.liste}>Evitez de mettre les mêmes mauvaises lettres, elles enlèveront tout de même des points: <b className={styles.b}>4 points</b> par mauvaise lettre. Cependant en trouver une vous rapportera <b className={styles.b}>10 points</b>.</li><br/>
                 <li className={styles.liste}>Vous ne pourrez pas voir dans la zone de saisie la lettre que vous avez entrée et pour la voir vous disposez d'une mini-section "Lettres utilisées" qui référencie les mauvaises lettres que vous aurez entrées. Si elles sont bonnes, elle s'afficheront à la place des tirets.</li><br/>
-                <li className={styles.liste}>Vous avez droit à <b>7 essais</b> au maximum au cas où vos lettres ne correspondent pas.</li>
+                <li className={styles.liste}>Vous avez droit à <b className={styles.b}>7 essais</b> au maximum au cas où vos lettres ne correspondent pas.</li>
             </ul>
         </div>
     )

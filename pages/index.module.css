@@ -87,7 +87,7 @@
 
 .divtrial{
     display: flex;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     flex-direction: column;
     width: 20%;
     height: 100%;
@@ -99,6 +99,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    position: relative;
 }
 
 .all{
@@ -113,7 +114,15 @@
     background-size: contain;
     background-repeat: no-repeat; 
     background-position: left bottom;
-    
+    /* background-color: rgba(52, 52, 52, 0.909); */
+}
+
+.in_game{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .game{
@@ -133,7 +142,7 @@
     justify-content: center;
     align-items: center;
     padding: 0 20px;
-    background-color: rgba(71, 156, 165, 0.45);
+    background-color: rgba(71,156,165,.45);
     border-radius: 25px;
 }
 
@@ -176,8 +185,13 @@
     font-size: 3em;
 }
 
-.liste{
-    z-index: 10;
+.liste, .rules p{
+    /* z-index: 10; */
+    color: rgba(255, 255, 255, 1)
+}
+
+.b{
+    color: rgba(10, 70, 91, 0.878);
 }
 
 .start{
@@ -196,3 +210,42 @@
     cursor: pointer;
 }
 
+@media screen and (max-width: 700px){
+    .all{
+        flex-direction: column;
+        justify-content: flex-start;
+        background-size: cover;
+        background-position: center;
+    }
+    .rules{
+        width: 90%;
+        height: max-content;
+        padding: 20px;
+    }
+    .divtrial{
+        flex-direction: row;
+        width: 100%;
+        height: 40%;/* box-sizing: initial; */
+    }
+    .divactualtrial{
+        width: max-content;
+        flex-direction: column;
+    }
+    .divactualtrial span{
+        display: none;
+    }
+    .divactualtrial p{
+        position: absolute;
+        left: 12px;
+        bottom: -32px;
+    }
+    .butt1,.butt2,.butt3,.butt4,.butt5,.butt6,.butt7,.butt8, .buttrial1,.buttrial2,.buttrial3,.buttrial4,.buttrial5,.buttrial6,.buttrial7,.buttrial8{
+        width: 25px;
+        height: 25px;
+    }
+    .buttrial1,.buttrial2,.buttrial3,.buttrial4,.buttrial5,.buttrial6,.buttrial7,.buttrial8, .p_trial{
+        left: 0;
+        margin-right: 2px;
+
+    }
+}
